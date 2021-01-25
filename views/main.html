@@ -33,7 +33,9 @@
             {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
               <button class="twit-follow">팔로우하기</button>
             {% else %}
-              <button class="twit-defollow">팔로우해제</button>
+              {%if twit.User.id !== user.id %}
+              <button class="twit-unfollow">팔로우해제</button>
+              {% endif %}
             {% endif %}
             <div class="twit-content">{{twit.content}}</div>
             {% if twit.img %}
@@ -82,14 +84,13 @@
         }
       });
     });
-    document.querySelectorAll('.twit-defollow').forEach(function(tag) {
+    document.querySelectorAll('.twit-unfollow').forEach(function(tag) {
       tag.addEventListener('click', function() {
         const myId = document.querySelector('#my-id');
         if (myId) {
           const userId = tag.parentNode.querySelector('.twit-user-id').value;
-          if (userId !== myId.value) {
             if (confirm('팔로우를해제하시겠습니까?')) {
-              axios.post(`/user/${userId}/defollow`)
+              axios.post(`/user/${userId}/unfollow`)
                 .then(() => {
                   location.reload();
                 })
@@ -97,7 +98,7 @@
                   console.error(err);
                 });
             }
-          }
+          
         }
       });
     });

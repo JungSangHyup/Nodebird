@@ -26,6 +26,24 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post('/modify', isLoggedIn, async (req, res, next) => {
+  const { nick, password } = req.body;
+  
+  try {
+    const hash = await bcrypt.hash(password, 12);
+    await User.update({
+      nick: nick, password: hash}, 
+      {where: {email: req.user.email}}
+    );
+    return res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+});
+
+
+
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {

@@ -46,7 +46,7 @@ static associate(db) {
     db.User.belongsToMany(db.User, {
         foreignKey: 'followerId',
         as: 'Followings',
-        through: "Follow",
+        through: 'Follow',
     });
 }
 };
