@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <form id="modify-form" action="/auth/modify" method="post">
+        <label>내정보 수정하기</label>
+          <div class="input-group">
+          <label id="modify-email">이메일</label>
+          <input id="modify-email" type="hidden" name="email" placeholder="{{user.email}} ">{{user.email}}</div>
+          <div class="input-group">
+          <label id="modify-nick">닉네임</label>
+          <input id="modify-nick" type="text" name="nick" placeholder="{{user.nick}} "></div>
+        <div class="input-group">
+          <label id="modify-email">패스워드:</label>
+          <input type="password" name="password" id="modify-password"></div>
+          <button id="modify-btn" type="submit" class="btn">수정하기</button>
+        </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    window.onload = () => {
+      if (new URL(location.href).searchParams.get('error')) {
+        alert('이미 존재하는 닉네임입니다.');
+      }
+    };
+  </script>
+{% endblock %}

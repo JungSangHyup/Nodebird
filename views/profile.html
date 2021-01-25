@@ -18,5 +18,19 @@
         {% endfor %}
       {% endif %}
     </div>
+
+    <div class="modify">
+      <h2>개인정보</h2>
+      <div>
+      <label>아이디 </label>{{user.email}}</div>
+      <div>
+      <label>닉네임 </label>{{user.nick}}</div>
+      <div>
+      <a id="modify" href="/modify" class="btn">수정하기</a>
+    </div>
+    </div>
+    
+
   </div>
+  
 {% endblock %}
